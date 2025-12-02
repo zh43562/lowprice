@@ -1,39 +1,35 @@
-name: Stock Task Automation
+# .github/workflows/stock_task.yml
+
+name: Run Daily Stock Analysis
 
 on:
   schedule:
-    # 每天晚上 8 点（UTC 时间）
-    - cron: '0 12 * * *'  # 这会在每天的 20:00 UTC 执行,北京时间
+    - cron: '0 12 * * *' # 每天 12:00 UTC (北京时间 20:00) 运行
+  workflow_dispatch:
 
 jobs:
-  run_stock_task:
+  run-analysis:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Checkout your repository
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository code
+        uses: actions/checkout@v4
 
-    # 2. 设置 Python 环境
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
 
-    # 3. 安装依赖
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    # 4. 运行 Python 脚本
-    - name: Run stock task
-      run: |
-        python low_price.py  # 根据你的脚本名称调整
-
-    # 5. 发送邮件（可以使用 SMTP 或第三方邮件服务 API）
-    - name: Send email with results
-      run: |
-        python send_email.py  # 假设你把邮件发送的逻辑单独写了一个 send_email.py
-
-        
+      - name: Run Analysis and Send Email
+        env:
+          # 关键: 把所有 Secrets 都注入到环境变量中
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        run: |
+          python low_price.py
