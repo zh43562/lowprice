@@ -9,6 +9,7 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 import os
+import time
 
 # --- 邮件发送函数 ---
 def send_email(subject, body, attachment_file_paths):
@@ -81,6 +82,8 @@ file_name0 = f"lowprice_ef_1_股票_信息表_{today_str}.csv"
 stock_a.to_csv(file_name0, encoding='utf_8_sig', index=False)
 print("股票信息表生成完毕。")
 
+time.sleep(8)
+
 # 2. 获取股东数目
 print("正在获取股东数目变化情况...")
 df_r = ef.stock.get_latest_holder_number()
@@ -151,3 +154,4 @@ print("任务完成，清理临时文件...")
 delete_files([file_name0, file_name1, file_name2, file_name3])
 
 print("自动化任务结束。")
+
