@@ -1,0 +1,37 @@
+name: Stock Task Automation
+
+on:
+  schedule:
+    # 每天晚上 8 点（UTC 时间）
+    - cron: '0 12 * * *'  # 这会在每天的 20:00 UTC 执行,北京时间
+
+jobs:
+  run_stock_task:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout your repository
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # 2. 设置 Python 环境
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    # 3. 安装依赖
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # 4. 运行 Python 脚本
+    - name: Run stock task
+      run: |
+        python low_price.py  # 根据你的脚本名称调整
+
+    # 5. 发送邮件（可以使用 SMTP 或第三方邮件服务 API）
+    - name: Send email with results
+      run: |
+        python send_email.py  # 假设你把邮件发送的逻辑单独写了一个 send_email.py
