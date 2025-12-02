@@ -45,4 +45,4 @@ jobs:
           HTTP_PROXY: ${{ secrets.PROXY_URL }}
           HTTPS_PROXY: ${{ secrets.PROXY_URL }}
         run: |
-          python low_price.py
+          python low_price_half.py
