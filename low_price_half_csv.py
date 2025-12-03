@@ -129,7 +129,7 @@ print("准备发送邮件...")
 files_to_send = [file_name2, file_name3]
 send_email(
     subject=f"每日股市筛选结果 (无股东数据版) - {today_str}",
-    body="你好，\n\n请查收附件中的今日股市筛选结果。\n\n- Gemini Business",
+    body="你好，\n\n请查收附件中的今日股市筛选结果。",
     attachment_file_paths=files_to_send
 )
 
@@ -137,4 +137,5 @@ print("任务完成，清理临时文件...")
 delete_files([file_name0, file_name2, file_name3])
 
 print("自动化任务结束。")
+
 
