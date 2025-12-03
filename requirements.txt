@@ -1,2 +1,3 @@
 efinance
+chinesecalendar
 pandas
