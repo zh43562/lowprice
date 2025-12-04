@@ -5,16 +5,12 @@
 
 
 
-  需要的东西：
+## 需要的东西：
     一个发件邮箱
     一个收件邮箱  （可以是同一个）
 
-  需要的东西：
-    一个发件邮箱
-    一个收件邮箱  （可以是同一个）  
-    
-需要在Action里加4个参数：
-
-  
-
-
+## 需要在Action里加4个参数：
+    SENDER_EMAIL  发件邮箱  
+    EMAIL_PASSWORD  发件邮箱的授权码
+    PROXY_URL  代理ip
+    RECEIVER_EMAIL  发件邮箱
